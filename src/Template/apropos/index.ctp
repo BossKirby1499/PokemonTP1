@@ -16,6 +16,16 @@
     </div>
     <div id="mainarea">
         <div id="contentarea">
+            <h4>Nom d'utilisateur et mot de passe Admin </h4>
+            <p>Admin Nom d'utilisateur : admin@hotmail.com </p>
+            <p>Admin mot de passe : admin </p>
+            <h4>Nom d'utilisateur et mot de passe de Super Utilisateur </h4>
+            <p>Super utilisateur Nom d'utilisateur : joel@live.ca </p>
+            <p>Super utilisateur mot de passe : joel </p>
+            <h4>Nom d'utilisateur et mot de passe de Utilisateur </h4>
+            <p> utilisateur Nom d'utilisateur : 1737805@cmontmorency.qc.ca </p>
+            <p> utilisateur mot de passe : 99c86A5 </p>
+
             <h2>Base de donnée de Pokemon </h2>
             <img src="webroot/img/base_de_donnees.png"width="650" heigth="400"  title="photo base de données" alt="photo base de données">
 
