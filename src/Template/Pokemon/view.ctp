@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Pokemon $pokemon
@@ -40,6 +41,10 @@
         <tr>
             <th scope="row"><?= __('Modified') ?></th>
             <td><?= h($pokemon->modified) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Subregion') ?></th>
+            <td><?=h($subregion) ?></td>
         </tr>
     </table>
     <h3>Description</h3>

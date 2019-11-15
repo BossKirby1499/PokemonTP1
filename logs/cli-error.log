@@ -244,3 +244,39 @@ Stack Trace:
 #13 {main}
 
 
+2019-11-01 16:08:24 Error: [Cake\Database\Exception] Cannot describe pokemon_autocomplete. It has 0 columns. in C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 101
+Stack Trace:
+#0 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php(63): Cake\Database\Schema\Collection->describe('pokemon_autocom...', Array)
+#1 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\ORM\Table.php(560): Cake\Database\Schema\CachedCollection->describe('pokemon_autocom...')
+#2 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\ORM\Table.php(685): Cake\ORM\Table->getSchema()
+#3 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(221): Cake\ORM\Table->getPrimaryKey()
+#4 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(131): Bake\Shell\Task\ModelTask->getAssociations(Object(Cake\ORM\Table))
+#5 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(114): Bake\Shell\Task\ModelTask->getTableContext(Object(Cake\ORM\Table), 'pokemon_autocom...', 'PokemonAutocomp...')
+#6 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(101): Bake\Shell\Task\ModelTask->bake('PokemonAutocomp...')
+#7 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\ModelTask->main('pokemon_autocom...')
+#8 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
+#9 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\Console\CommandRunner.php(384): Cake\Console\Shell->runCommand(Array, true)
+#10 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\Console\CommandRunner.php(162): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#11 C:\UniServerZ\www\gr02\pokemon v0-0-1\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#12 {main}
+
+
+2019-11-08 17:27:49 Error: [Cake\Database\Exception] Cannot describe items. It has 0 columns. in C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 101
+Stack Trace:
+#0 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php(63): Cake\Database\Schema\Collection->describe('items', Array)
+#1 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\ORM\Table.php(560): Cake\Database\Schema\CachedCollection->describe('items')
+#2 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\ORM\Table.php(685): Cake\ORM\Table->getSchema()
+#3 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(221): Cake\ORM\Table->getPrimaryKey()
+#4 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(131): Bake\Shell\Task\ModelTask->getAssociations(Object(Cake\ORM\Table))
+#5 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(114): Bake\Shell\Task\ModelTask->getTableContext(Object(Cake\ORM\Table), 'items', 'Items')
+#6 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(101): Bake\Shell\Task\ModelTask->bake('Items')
+#7 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\bake\src\Shell\BakeShell.php(279): Bake\Shell\Task\ModelTask->main('Items')
+#8 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\Collection\CollectionTrait.php(65): Bake\Shell\BakeShell->Bake\Shell\{closure}('Items', 0)
+#9 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\bake\src\Shell\BakeShell.php(280): Cake\Collection\Collection->each(Object(Closure))
+#10 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\Console\Shell.php(518): Bake\Shell\BakeShell->all('items')
+#11 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\Console\CommandRunner.php(384): Cake\Console\Shell->runCommand(Array, true)
+#12 C:\UniServerZ\www\gr02\pokemon v0-0-1\vendor\cakephp\cakephp\src\Console\CommandRunner.php(162): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#13 C:\UniServerZ\www\gr02\pokemon v0-0-1\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#14 {main}
+
+

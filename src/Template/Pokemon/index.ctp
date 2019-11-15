@@ -15,6 +15,8 @@
         <li><?= $this->Html->link(__('List Attacks'), ['controller' => 'Attacks', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Attack'), ['controller' => 'Attacks', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Files'), ['controller' => 'Files', 'action' => 'index']) ?></li>
+        <li ><?= $this->Html->link(__('Liste Items'), ['controller' => 'Items', 'action' => 'index']) ?></li>
+
     </ul>
 </nav>
 <div class="pokemon index large-9 medium-8 columns content">

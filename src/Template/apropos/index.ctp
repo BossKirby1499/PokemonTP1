@@ -7,8 +7,8 @@
 <body>
 <div id="page">
     <div id="header">
-        <h1> David Lavigueur <br/>420-4A4 MO Web et Bases de données.</h1>
-        <div class="description"> Hiver 2019, Collège Montmorency</div>
+        <h1> David Lavigueur <br/>Application internet.</h1>
+        <div class="description"> Automne 2019, Collège Montmorency</div>
     </div>
     <div id="menulinks">
         <?= $this->Html->link(__('Index'), ['controller' => 'Pokemon', 'action' => 'index']) ?>
@@ -31,6 +31,18 @@
 
             <h2>Base de donnée originale</h2>
             <img src="webroot/img/PokemonDatabase.png" width="650" heigth="400"  title="photo base de données originale" alt="photo base de données originale">
+            <h2>Pour corriger le site web</h2>
+            <h4>Autocomplete et liste liées </h4>
+            <p>Aller dans nouveau pokemon dans les sections Name et Region/Subregion. La section doit moontrer le nom de diférents pokemons existants.</br>
+            Pour les régions et sous-régions, chaque région doit changer la liste de sous-région. De base, la sous-région est inconnue</p>
+            <h4>Interface REST </h4>
+            <p>Cliquer sur le bouton "Liste Items" en haut à droite pour accéder à la page. La page REST doit etre monopage et l'on</br>
+                peut ajouter un item en cliquant sur le bouton Add item. On peut aussi supprimer des items</p>
+            <h4>Interface Admin avec Bootstrap </h4>
+            <p>Cliquer sur le bouton "Section Admin en PHP" en haut à droite pour accéder à la page. La page doit changer de format et de style</br>
+            et la barre de recherche doit afficher  leNomDuProjet/admin/attacks pour signifier le passage en mode admin</p>
+            <h4> Sqlite  </h4>
+            <p>Dans le dossier Sqlite sous config se trouve le fichier Sqlite contenant la BD.</p>
             <h4> <a href="http://slides.com/cosileone/pokemon-database/fullscreen#/">Cliquez ici pour acccédez au site de la base de donnée originale.</a></h4>
 
         </div>
@@ -43,7 +55,7 @@
 
 
     <div id="footer">
-        <p>Toute utilisation commerciale ou dans un site personnel, est strictement interdite sans l’accord préalable de l’auteur <br/>©Tous droits réservés Tp1 David Lavigueur </br> Contact :
+        <p>Toute utilisation commerciale ou dans un site personnel, est strictement interdite sans l’accord préalable de l’auteur <br/>©Tous droits réservés Tp2 David Lavigueur </br> Contact :
             <a href="mailto:davidlavigueur@live.ca">davidlavigueur@live.ca</a></p>
     </div>
 </body>

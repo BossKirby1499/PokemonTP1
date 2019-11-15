@@ -61,7 +61,7 @@ class AttacksSeed extends AbstractSeed
             ],
         ];
 
-        $table = $this->table('attacks');
+        $table = $this->table('Attacks');
         $table->insert($data)->save();
     }
 }

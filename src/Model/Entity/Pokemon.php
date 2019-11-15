@@ -39,6 +39,9 @@ class Pokemon extends Entity
         'modified' => true,
         'user' => true,
         'types' => true,
-        'files' => true
+        'files' => true,
+        'subcategory_id' => true,
+        'subcategories' => true,
+
     ];
 }

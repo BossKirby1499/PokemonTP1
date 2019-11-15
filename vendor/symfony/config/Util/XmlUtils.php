@@ -47,7 +47,7 @@ class XmlUtils
     public static function parse($content, $schemaOrCallable = null)
     {
         if (!\extension_loaded('dom')) {
-            throw new \LogicException('Extension DOM is required.');
+            throw new \RuntimeException('Extension DOM is required.');
         }
 
         $internalErrors = libxml_use_internal_errors(true);
@@ -80,7 +80,7 @@ class XmlUtils
             $e = null;
             if (\is_callable($schemaOrCallable)) {
                 try {
-                    $valid = $schemaOrCallable($dom, $internalErrors);
+                    $valid = \call_user_func($schemaOrCallable, $dom, $internalErrors);
                 } catch (\Exception $e) {
                     $valid = false;
                 }
@@ -152,7 +152,7 @@ class XmlUtils
      * @param \DOMElement $element     A \DOMElement instance
      * @param bool        $checkPrefix Check prefix in an element or an attribute name
      *
-     * @return array A PHP array
+     * @return mixed
      */
     public static function convertDomElementToArray(\DOMElement $element, $checkPrefix = true)
     {
@@ -219,7 +219,7 @@ class XmlUtils
 
         switch (true) {
             case 'null' === $lowercaseValue:
-                return;
+                return null;
             case ctype_digit($value):
                 $raw = $value;
                 $cast = (int) $value;
@@ -234,7 +234,7 @@ class XmlUtils
                 return true;
             case 'false' === $lowercaseValue:
                 return false;
-            case isset($value[1]) && '0b' == $value[0].$value[1]:
+            case isset($value[1]) && '0b' == $value[0].$value[1] && preg_match('/^0b[01]*$/', $value):
                 return bindec($value);
             case is_numeric($value):
                 return '0x' === $value[0].$value[1] ? hexdec($value) : (float) $value;

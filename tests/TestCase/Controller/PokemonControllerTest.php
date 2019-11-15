@@ -6,7 +6,7 @@ use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\PokemonController Test Case
+ * App\Controller\AttacksController Test Case
  *
  * @uses \App\Controller\PokemonController
  */

@@ -22,9 +22,9 @@ class NormalizationTest extends TestCase
      */
     public function testNormalizeEncoders($denormalized)
     {
-        $tb = new TreeBuilder('root_name', 'array');
+        $tb = new TreeBuilder();
         $tree = $tb
-            ->getRootNode()
+            ->root('root_name', 'array')
                 ->fixXmlConfig('encoder')
                 ->children()
                     ->node('encoders', 'array')
@@ -97,9 +97,9 @@ class NormalizationTest extends TestCase
      */
     public function testAnonymousKeysArray($denormalized)
     {
-        $tb = new TreeBuilder('root', 'array');
+        $tb = new TreeBuilder();
         $tree = $tb
-            ->getRootNode()
+            ->root('root', 'array')
                 ->children()
                     ->node('logout', 'array')
                         ->fixXmlConfig('handler')
@@ -169,12 +169,10 @@ class NormalizationTest extends TestCase
         return array_map(function ($v) { return [$v]; }, $configs);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     * @expectedExceptionMessage The attribute "id" must be set for path "root.thing".
-     */
     public function testNonAssociativeArrayThrowsExceptionIfAttributeNotSet()
     {
+        $this->expectException('Symfony\Component\Config\Definition\Exception\InvalidConfigurationException');
+        $this->expectExceptionMessage('The attribute "id" must be set for path "root.thing".');
         $denormalized = [
             'thing' => [
                 ['foo', 'bar'], ['baz', 'qux'],
@@ -186,9 +184,9 @@ class NormalizationTest extends TestCase
 
     public function testAssociativeArrayPreserveKeys()
     {
-        $tb = new TreeBuilder('root', 'array');
+        $tb = new TreeBuilder();
         $tree = $tb
-            ->getRootNode()
+            ->root('root', 'array')
                 ->prototype('array')
                     ->children()
                         ->node('foo', 'scalar')->end()
@@ -210,9 +208,9 @@ class NormalizationTest extends TestCase
 
     private function getNumericKeysTestTree()
     {
-        $tb = new TreeBuilder('root', 'array');
+        $tb = new TreeBuilder();
         $tree = $tb
-            ->getRootNode()
+            ->root('root', 'array')
                 ->children()
                     ->node('thing', 'array')
                         ->useAttributeAsKey('id')

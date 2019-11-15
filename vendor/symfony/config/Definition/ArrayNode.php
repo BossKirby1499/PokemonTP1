@@ -38,17 +38,13 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
     }
 
     /**
-     * Normalizes keys between the different configuration formats.
+     * {@inheritdoc}
      *
      * Namely, you mostly have foo_bar in YAML while you have foo-bar in XML.
      * After running this method, all keys are normalized to foo_bar.
      *
      * If you have a mixed key like foo-bar_moo, it will not be altered.
      * The key will also not be altered if the target key already exists.
-     *
-     * @param mixed $value
-     *
-     * @return array The value with normalized keys
      */
     protected function preNormalize($value)
     {
@@ -304,31 +300,7 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
 
         // if extra fields are present, throw exception
         if (\count($value) && !$this->ignoreExtraKeys) {
-            $proposals = array_keys($this->children);
-            sort($proposals);
-            $guesses = [];
-
-            foreach (array_keys($value) as $subject) {
-                $minScore = INF;
-                foreach ($proposals as $proposal) {
-                    $distance = levenshtein($subject, $proposal);
-                    if ($distance <= $minScore && $distance < 3) {
-                        $guesses[$proposal] = $distance;
-                        $minScore = $distance;
-                    }
-                }
-            }
-
-            $msg = sprintf('Unrecognized option%s "%s" under "%s"', 1 === \count($value) ? '' : 's', implode(', ', array_keys($value)), $this->getPath());
-
-            if (\count($guesses)) {
-                asort($guesses);
-                $msg .= sprintf('. Did you mean "%s"?', implode('", "', array_keys($guesses)));
-            } else {
-                $msg .= sprintf('. Available option%s %s "%s".', 1 === \count($proposals) ? '' : 's', 1 === \count($proposals) ? 'is' : 'are', implode('", "', $proposals));
-            }
-
-            $ex = new InvalidConfigurationException($msg);
+            $ex = new InvalidConfigurationException(sprintf('Unrecognized option%s "%s" under "%s"', 1 === \count($value) ? '' : 's', implode(', ', array_keys($value)), $this->getPath()));
             $ex->setPath($this->getPath());
 
             throw $ex;
@@ -403,13 +375,5 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
         }
 
         return $leftSide;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function allowPlaceholders(): bool
-    {
-        return false;
     }
 }

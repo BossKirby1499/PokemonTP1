@@ -16,14 +16,12 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class MergeTest extends TestCase
 {
-    /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException
-     */
     public function testForbiddenOverwrite()
     {
-        $tb = new TreeBuilder('root', 'array');
+        $this->expectException('Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException');
+        $tb = new TreeBuilder();
         $tree = $tb
-            ->getRootNode()
+            ->root('root', 'array')
                 ->children()
                     ->node('foo', 'scalar')
                         ->cannotBeOverwritten()
@@ -46,9 +44,9 @@ class MergeTest extends TestCase
 
     public function testUnsetKey()
     {
-        $tb = new TreeBuilder('root', 'array');
+        $tb = new TreeBuilder();
         $tree = $tb
-            ->getRootNode()
+            ->root('root', 'array')
                 ->children()
                     ->node('foo', 'scalar')->end()
                     ->node('bar', 'scalar')->end()
@@ -92,14 +90,12 @@ class MergeTest extends TestCase
         ], $tree->merge($a, $b));
     }
 
-    /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     */
     public function testDoesNotAllowNewKeysInSubsequentConfigs()
     {
-        $tb = new TreeBuilder('root', 'array');
+        $this->expectException('Symfony\Component\Config\Definition\Exception\InvalidConfigurationException');
+        $tb = new TreeBuilder();
         $tree = $tb
-            ->getRootNode()
+            ->root('config', 'array')
                 ->children()
                     ->node('test', 'array')
                         ->disallowNewKeysInSubsequentConfigs()
@@ -131,10 +127,10 @@ class MergeTest extends TestCase
 
     public function testPerformsNoDeepMerging()
     {
-        $tb = new TreeBuilder('root', 'array');
+        $tb = new TreeBuilder();
 
         $tree = $tb
-            ->getRootNode()
+            ->root('config', 'array')
                 ->children()
                     ->node('no_deep_merging', 'array')
                         ->performNoDeepMerging()
@@ -170,10 +166,10 @@ class MergeTest extends TestCase
 
     public function testPrototypeWithoutAKeyAttribute()
     {
-        $tb = new TreeBuilder('root', 'array');
+        $tb = new TreeBuilder();
 
         $tree = $tb
-            ->getRootNode()
+            ->root('config', 'array')
                 ->children()
                     ->arrayNode('append_elements')
                         ->prototype('scalar')->end()

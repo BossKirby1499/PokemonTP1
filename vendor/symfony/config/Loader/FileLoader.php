@@ -12,8 +12,8 @@
 namespace Symfony\Component\Config\Loader;
 
 use Symfony\Component\Config\Exception\FileLoaderImportCircularReferenceException;
+use Symfony\Component\Config\Exception\FileLoaderLoadException;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
-use Symfony\Component\Config\Exception\LoaderLoadException;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Config\Resource\FileExistenceResource;
 use Symfony\Component\Config\Resource\GlobResource;
@@ -66,7 +66,7 @@ abstract class FileLoader extends Loader
      *
      * @return mixed
      *
-     * @throws LoaderLoadException
+     * @throws FileLoaderLoadException
      * @throws FileLoaderImportCircularReferenceException
      * @throws FileLocatorFileNotFoundException
      */
@@ -93,7 +93,7 @@ abstract class FileLoader extends Loader
     /**
      * @internal
      */
-    protected function glob(string $pattern, bool $recursive, &$resource = null, bool $ignoreErrors = false, bool $forExclusion = false, array $excluded = [])
+    protected function glob($pattern, $recursive, &$resource = null, $ignoreErrors = false)
     {
         if (\strlen($pattern) === $i = strcspn($pattern, '*?{[')) {
             $prefix = $pattern;
@@ -120,12 +120,14 @@ abstract class FileLoader extends Loader
 
             return;
         }
-        $resource = new GlobResource($prefix, $pattern, $recursive, $forExclusion, $excluded);
+        $resource = new GlobResource($prefix, $pattern, $recursive);
 
-        yield from $resource;
+        foreach ($resource as $path => $info) {
+            yield $path => $info;
+        }
     }
 
-    private function doImport($resource, $type = null, bool $ignoreErrors = false, $sourceResource = null)
+    private function doImport($resource, $type = null, $ignoreErrors = false, $sourceResource = null)
     {
         try {
             $loader = $this->resolve($resource, $type);
@@ -159,12 +161,14 @@ abstract class FileLoader extends Loader
         } catch (\Exception $e) {
             if (!$ignoreErrors) {
                 // prevent embedded imports from nesting multiple exceptions
-                if ($e instanceof LoaderLoadException) {
+                if ($e instanceof FileLoaderLoadException) {
                     throw $e;
                 }
 
-                throw new LoaderLoadException($resource, $sourceResource, null, $e, $type);
+                throw new FileLoaderLoadException($resource, $sourceResource, null, $e, $type);
             }
         }
+
+        return null;
     }
 }

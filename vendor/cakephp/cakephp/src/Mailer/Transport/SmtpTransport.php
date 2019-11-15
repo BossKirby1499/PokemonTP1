@@ -25,7 +25,6 @@ use Exception;
  */
 class SmtpTransport extends AbstractTransport
 {
-
     /**
      * Default config for this class
      *
@@ -45,7 +44,7 @@ class SmtpTransport extends AbstractTransport
     /**
      * Socket to SMTP server
      *
-     * @var \Cake\Network\Socket
+     * @var \Cake\Network\Socket|null
      */
     protected $_socket;
 
@@ -190,7 +189,7 @@ class SmtpTransport extends AbstractTransport
     /**
      * Parses and stores the response lines in `'code' => 'message'` format.
      *
-     * @param array $responseLines Response lines to parse.
+     * @param string[] $responseLines Response lines to parse.
      * @return void
      */
     protected function _bufferResponseLines(array $responseLines)

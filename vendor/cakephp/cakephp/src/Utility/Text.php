@@ -21,7 +21,6 @@ use InvalidArgumentException;
  */
 class Text
 {
-
     /**
      * Default transliterator.
      *
@@ -91,7 +90,7 @@ class Text
      * @param string $separator The token to split the data on.
      * @param string $leftBound The left boundary to ignore separators in.
      * @param string $rightBound The right boundary to ignore separators in.
-     * @return array|string Array of tokens in $data or original input if empty.
+     * @return string|string[] Array of tokens in $data or original input if empty.
      */
     public static function tokenize($data, $separator = ',', $leftBound = '(', $rightBound = ')')
     {
@@ -484,7 +483,7 @@ class Text
      * @param string|array $phrase The phrase or phrases that will be searched.
      * @param array $options An array of HTML attributes and options.
      * @return string The highlighted text
-     * @link https://book.cakephp.org/3.0/en/core-libraries/text.html#highlighting-substrings
+     * @link https://book.cakephp.org/3/en/core-libraries/text.html#highlighting-substrings
      */
     public static function highlight($text, $phrase, array $options = [])
     {
@@ -612,7 +611,7 @@ class Text
      * @param int $length Length of returned string, including ellipsis.
      * @param array $options An array of HTML attributes and options.
      * @return string Trimmed string.
-     * @link https://book.cakephp.org/3.0/en/core-libraries/text.html#truncating-text
+     * @link https://book.cakephp.org/3/en/core-libraries/text.html#truncating-text
      */
     public static function truncate($text, $length = 100, array $options = [])
     {
@@ -883,7 +882,7 @@ class Text
      * @param int $radius The amount of characters that will be returned on each side of the founded phrase
      * @param string $ellipsis Ending that will be appended
      * @return string Modified string
-     * @link https://book.cakephp.org/3.0/en/core-libraries/text.html#extracting-an-excerpt
+     * @link https://book.cakephp.org/3/en/core-libraries/text.html#extracting-an-excerpt
      */
     public static function excerpt($text, $phrase, $radius = 100, $ellipsis = '...')
     {
@@ -922,11 +921,11 @@ class Text
     /**
      * Creates a comma separated list where the last two items are joined with 'and', forming natural language.
      *
-     * @param array $list The list to be joined.
+     * @param string[] $list The list to be joined.
      * @param string|null $and The word used to join the last and second last items together with. Defaults to 'and'.
      * @param string $separator The separator used to join all the other items together. Defaults to ', '.
      * @return string The glued together string.
-     * @link https://book.cakephp.org/3.0/en/core-libraries/text.html#converting-an-array-to-sentence-form
+     * @link https://book.cakephp.org/3/en/core-libraries/text.html#converting-an-array-to-sentence-form
      */
     public static function toList(array $list, $and = null, $separator = ', ')
     {
@@ -1035,7 +1034,7 @@ class Text
      * @param mixed $default Value to be returned when invalid size was used, for example 'Unknown type'
      * @return mixed Number of bytes as integer on success, `$default` on failure if not false
      * @throws \InvalidArgumentException On invalid Unit type.
-     * @link https://book.cakephp.org/3.0/en/core-libraries/text.html#Cake\Utility\Text::parseFileSize
+     * @link https://book.cakephp.org/3/en/core-libraries/text.html#Cake\Utility\Text::parseFileSize
      */
     public static function parseFileSize($size, $default = false)
     {

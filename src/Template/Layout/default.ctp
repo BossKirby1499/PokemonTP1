@@ -26,12 +26,27 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('style.css') ?>
+    <?php
+    echo $this->Html->css([
+        'base.css',
+        'style.css',
+        'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css',
+      //  'bootstrap.min.css',
+        'Cocktails/basic.css',
+        'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'
+    ]);
+    ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+    <?php
+    echo $this->Html->script([
+        'https://code.jquery.com/jquery-1.12.4.js',
+        'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
+        'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'
+    ], ['block' => 'scriptLibraries']
+    );
+    ?>
 </head>
 <body>
     <nav class="top-bar expanded" data-topbar role="navigation">
@@ -47,9 +62,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         $loguser = $this->request->session()->read('Auth.User');
                         if ($loguser) {
                             $user = $loguser['email'];
-                            echo $this->Html->link($user . ' logout', ['controller' => 'Users', 'action' => 'logout']);
+                            echo $this->Html->link($user . ' logout', [  'prefix' => false,'controller' => 'Users', 'action' => 'logout']);
                         } else {
-                            echo $this->Html->link('login', ['controller' => 'Users', 'action' => 'login']);
+                            echo $this->Html->link('login', ['prefix' => false,'controller' => 'Users', 'action' => 'login']);
                         }
                         ?>
                     </li>
@@ -65,7 +80,16 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 </li>
                 <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
                 <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
-                <li><?= $this->Html->link(__('À propos'), ['controller' => 'Apropos', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link(__('À propos'), ['prefix' => false,'controller' => 'Apropos', 'action' => 'index']) ?></li>
+                <li ><?= $this->Html->link(__('Liste Items'), ['prefix' => false,'controller' => 'Items', 'action' => 'index']) ?></li>
+                <li><?=
+                    $this->Html->link('Section Admin en PHP', [
+                        'prefix' => 'admin',
+                        'controller' => 'Attacks',
+                        'action' => 'index'
+                    ]);
+                    ?>
+                </li>
             </ul>
         </div>
     </nav>
@@ -75,5 +99,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </div>
     <footer>
     </footer>
+    <?= $this->fetch('scriptLibraries') ?>
+    <?= $this->fetch('script'); ?>
+    <?= $this->fetch('scriptBottom') ?>
 </body>
 </html>

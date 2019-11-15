@@ -74,7 +74,6 @@ use RuntimeException;
  */
 class View implements EventDispatcherInterface
 {
-
     use CellTrait {
         cell as public;
     }
@@ -232,7 +231,7 @@ class View implements EventDispatcherInterface
     /**
      * List of variables to collect from the associated controller.
      *
-     * @var array
+     * @var string[]
      */
     protected $_passedVars = [
         'viewVars', 'autoLayout', 'helpers', 'template', 'layout', 'name', 'theme',
@@ -278,7 +277,7 @@ class View implements EventDispatcherInterface
     /**
      * Content stack, used for nested templates that all use View::extend();
      *
-     * @var array
+     * @var string[]
      */
     protected $_stack = [];
 
@@ -1326,7 +1325,9 @@ class View implements EventDispatcherInterface
                 'Use the helper registry through View::helpers() to manage helpers.'
             );
 
-            return $this->helpers = $value;
+            $this->helpers = $value;
+
+            return;
         }
 
         if ($name === 'name') {

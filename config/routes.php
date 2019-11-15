@@ -23,6 +23,7 @@ use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Mailer\Email;
 
+Router::extensions(['json', 'xml']);
 /**
  * The default class to use for all routes
  *
@@ -46,17 +47,26 @@ use Cake\Mailer\Email;
  */
 Router::defaultRouteClass(DashedRoute::class);
 
+Router::prefix('api', function ($routes) {
+    $routes->extensions(['json', 'xml']);
+    $routes->resources('Items');
+    $routes->resources('Users');
+    Router::connect('/api/users/register', ['controller' => 'Users', 'action' => 'add', 'prefix' => 'api']);
+    Router::prefix('Admin', function ($routes) { $routes->fallbacks('InflectedRoute'); });
+    $routes->fallbacks('InflectedRoute');
+});
+
 Router::scope('/', function (RouteBuilder $routes) {
     // Register scoped middleware for in scopes.
-    $routes->registerMiddleware('csrf', new CsrfProtectionMiddleware([
+  /*  $routes->registerMiddleware('csrf', new CsrfProtectionMiddleware([
         'httpOnly' => true
-    ]));
+    ]));*/
     $routes->connect('/email',['controller'=>'Emails','action'=>'index']);
     /**
      * Apply a middleware to the current route scope.
      * Requires middleware to be registered via `Application::routes()` with `registerMiddleware()`
      */
-    $routes->applyMiddleware('csrf');
+ /*   $routes->applyMiddleware('csrf');*/
 
     /**
      * Here, we are connecting '/' (base path) to a controller called 'Pages',

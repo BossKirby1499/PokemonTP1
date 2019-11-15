@@ -6,7 +6,7 @@ class Initial extends AbstractMigration
     public function up()
     {
 
-        $this->table('attacks')
+        $this->table('Attacks')
             ->addColumn('title', 'string', [
                 'default' => null,
                 'limit' => 50,
@@ -258,7 +258,7 @@ class Initial extends AbstractMigration
             ])
             ->create();
 
-        $this->table('attacks')
+        $this->table('Attacks')
             ->addForeignKey(
                 'pokemon_id',
                 'pokemon',
@@ -327,7 +327,7 @@ class Initial extends AbstractMigration
 
     public function down()
     {
-        $this->table('attacks')
+        $this->table('Attacks')
             ->dropForeignKey(
                 'pokemon_id'
             )->save();
@@ -353,7 +353,7 @@ class Initial extends AbstractMigration
                 'type_id'
             )->save();
 
-        $this->table('attacks')->drop()->save();
+        $this->table('Attacks')->drop()->save();
         $this->table('files')->drop()->save();
         $this->table('i18n')->drop()->save();
         $this->table('pokemon')->drop()->save();

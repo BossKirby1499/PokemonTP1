@@ -18,9 +18,10 @@ class ExampleConfiguration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder('acme_root');
+        $treeBuilder = new TreeBuilder();
+        $rootNode = $treeBuilder->root('acme_root');
 
-        $treeBuilder->getRootNode()
+        $rootNode
             ->fixXmlConfig('parameter')
             ->fixXmlConfig('connection')
             ->fixXmlConfig('cms_page')

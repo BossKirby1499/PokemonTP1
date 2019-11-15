@@ -36,14 +36,14 @@ class ArrayNodeDefinitionTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidDefinitionException
      * @dataProvider providePrototypeNodeSpecificCalls
      */
     public function testPrototypeNodeSpecificOption($method, $args)
     {
+        $this->expectException('Symfony\Component\Config\Definition\Exception\InvalidDefinitionException');
         $node = new ArrayNodeDefinition('root');
 
-        $node->{$method}(...$args);
+        \call_user_func_array([$node, $method], $args);
 
         $node->getNode();
     }
@@ -54,16 +54,13 @@ class ArrayNodeDefinitionTest extends TestCase
             ['defaultValue', [[]]],
             ['addDefaultChildrenIfNoneSet', []],
             ['requiresAtLeastOneElement', []],
-            ['cannotBeEmpty', []],
             ['useAttributeAsKey', ['foo']],
         ];
     }
 
-    /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidDefinitionException
-     */
     public function testConcreteNodeSpecificOption()
     {
+        $this->expectException('Symfony\Component\Config\Definition\Exception\InvalidDefinitionException');
         $node = new ArrayNodeDefinition('root');
         $node
             ->addDefaultsIfNotSet()
@@ -72,11 +69,9 @@ class ArrayNodeDefinitionTest extends TestCase
         $node->getNode();
     }
 
-    /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidDefinitionException
-     */
     public function testPrototypeNodesCantHaveADefaultValueWhenUsingDefaultChildren()
     {
+        $this->expectException('Symfony\Component\Config\Definition\Exception\InvalidDefinitionException');
         $node = new ArrayNodeDefinition('root');
         $node
             ->defaultValue([])
@@ -318,8 +313,8 @@ class ArrayNodeDefinitionTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     * @expectedExceptionMessage The path "root" should have at least 1 element(s) defined.
+     * @group legacy
+     * @expectedDeprecation Using Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition::cannotBeEmpty() at path "root" has no effect, consider requiresAtLeastOneElement() instead. In 4.0 both methods will behave the same.
      */
     public function testCannotBeEmpty()
     {
@@ -346,8 +341,8 @@ class ArrayNodeDefinitionTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidDefinitionException
-     * @expectedExceptionMessage ->cannotBeEmpty() is not applicable to concrete nodes at path "root"
+     * @group legacy
+     * @expectedDeprecation ->cannotBeEmpty() is not applicable to concrete nodes at path "root". In 4.0 it will throw an exception.
      */
     public function testCannotBeEmptyOnConcreteNode()
     {

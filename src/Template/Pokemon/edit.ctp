@@ -4,6 +4,15 @@
  * @var \App\Model\Entity\Pokemon $pokemon
  */
 ?>
+<?php
+$urlToLinkedListFilter = $this->Url->build([
+    "controller" => "Subcategories",
+    "action" => "getByCategory",
+    "_ext" => "json"
+]);
+echo $this->Html->scriptBlock('var urlToLinkedListFilter = "' . $urlToLinkedListFilter . '";', ['block' => true]);
+echo $this->Html->script('Pokemon/add', ['block' => 'scriptBottom']);
+?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -31,6 +40,8 @@
             echo $this->Form->control('published');
             echo $this->Form->control('types._ids', ['options' => $types]);
             echo $this->Form->control('files._ids', ['options' => $files]);
+              echo $this->Form->control('Category_id', ['options' => $categories]);
+              echo $this->Form->control('subcategory_id', ['options' => $subcategories]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

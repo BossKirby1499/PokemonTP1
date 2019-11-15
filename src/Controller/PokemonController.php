@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\View\Helper\HtmlHelper;
 
 /**
  * Pokemon Controller
@@ -39,8 +40,9 @@ class PokemonController extends AppController
         $pokemon = $this->Pokemon->get($id, [
             'contain' => ['Users', 'Types','Attacks', 'Files']
         ]);
+        $subregion =  $this->Pokemon->Subcategories->get($pokemon->subcategory_id)['name'];
 
-        $this->set('pokemon', $pokemon);
+        $this->set(compact('pokemon', 'subregion'));
     }
 
     /**
@@ -54,6 +56,7 @@ class PokemonController extends AppController
         if ($this->request->is('post')) {
             $pokemon = $this->Pokemon->patchEntity($pokemon, $this->request->getData());
             $pokemon->user_id = $this->Auth->user('id');
+
             if ($this->Pokemon->save($pokemon)) {
                 $this->Flash->success(__('The pokemon has been saved.'));
 
@@ -61,10 +64,25 @@ class PokemonController extends AppController
             }
             $this->Flash->error(__('The pokemon could not be saved. Please, try again.'));
         }
+        // Bâtir la liste des catégories
+        $this->loadModel('Categories');
+        $categories = $this->Categories->find('list', ['limit' => 200]);
+
+        // Extraire le id de la première catégorie
+        $categories = $categories->toArray();
+        reset($categories);
+        $category_id = key($categories);
+
+        // Bâtir la liste des sous-catégories reliées à cette catégorie
+        $subcategories = $this->Pokemon->Subcategories->find('list', [
+            'conditions' => ['Subcategories.category_id' => $category_id],
+        ]);
         $users = $this->Pokemon->Users->find('list', ['limit' => 200]);
         $types = $this->Pokemon->Types->find('list', ['limit' => 200]);
         $files = $this->Pokemon->Files->find('list', ['limit' => 200]);
-        $this->set(compact('pokemon', 'users', 'types','files'));
+
+        $this->set(compact('pokemon', 'users', 'types','files','subcategories', 'categories'));
+
     }
 
     /**
@@ -89,10 +107,23 @@ class PokemonController extends AppController
             }
             $this->Flash->error(__('The pokemon could not be saved. Please, try again.'));
         }
+        // Bâtir la liste des catégories
+        $this->loadModel('Categories');
+        $categories = $this->Categories->find('list', ['limit' => 200]);
+
+        // Extraire le id de la première catégorie
+        $categories = $categories->toArray();
+        reset($categories);
+        $category_id = key($categories);
+
+        // Bâtir la liste des sous-catégories reliées à cette catégorie
+        $subcategories = $this->Pokemon->Subcategories->find('list', [
+            'conditions' => ['Subcategories.category_id' => $category_id],
+        ]);
         $users = $this->Pokemon->Users->find('list', ['limit' => 200]);
         $types = $this->Pokemon->Types->find('list', ['limit' => 200]);
         $files = $this->Pokemon->Files->find('list', ['limit' => 200]);
-        $this->set(compact('pokemon', 'users', 'types','files'));
+        $this->set(compact('pokemon', 'users', 'types','files','subcategories', 'categories'));
     }
 
     /**
@@ -132,6 +163,7 @@ class PokemonController extends AppController
 
 
 
+
         // All other actions require a slug.
         $id = $this->request->getParam('pass.0');
         if ($id == null ) {
@@ -149,4 +181,6 @@ class PokemonController extends AppController
 
 
     }
+
+
 }

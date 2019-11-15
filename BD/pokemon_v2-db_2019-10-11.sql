@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `attacks`
+-- Structure de la table `Attacks`
 --
 
 CREATE TABLE `attacks` (
@@ -36,7 +36,7 @@ CREATE TABLE `attacks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Contenu de la table `attacks`
+-- Contenu de la table `Attacks`
 --
 
 INSERT INTO `attacks` (`id`, `title`, `description`, `pokemon_id`, `created`, `modified`) VALUES

@@ -34,7 +34,7 @@ class AttacksTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('attacks');
+        $this->setTable('Attacks');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
 

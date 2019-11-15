@@ -7,6 +7,7 @@ use Cake\ORM\Table;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
+
 /**
  * Pokemon Model
  *
@@ -59,6 +60,10 @@ class PokemonTable extends Table
             'targetForeignKey' => 'file_id',
             'joinTable' => 'pokemon_files'
         ]);
+        $this->belongsTo('Subcategories', [
+            'foreignKey' => 'subcategory_id'
+        ]);
+
     }
 
     /**
