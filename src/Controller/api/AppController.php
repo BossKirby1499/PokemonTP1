@@ -26,18 +26,23 @@ class AppController extends Controller {
                 'Crud.ApiQueryLog'
             ]
         ]);
-/*        $this->loadComponent('Auth', [
+        $this->loadComponent('Flash');
+      $this->loadComponent('Auth', [
             'storage' => 'Memory',
             'authenticate' => [
                 'Form' => [
-                    'scope' => ['Users.active' => 1]
+                    'fields' => [
+                    'username' => 'email',
+                    'password' => 'password'
+                    ],
+                    'scope' => ['Users.actif' => 1]
                 ],
                 'ADmad/JwtAuth.Jwt' => [
                     'parameter' => 'token',
                     'userModel' => 'Users',
-                    'scope' => ['Users.active' => 1],
+                    'scope' => ['Users.actif' => 1],
                     'fields' => [
-                        'username' => 'id'
+                        'email' => 'id'
                     ],
                     'queryDatasource' => true
                 ]
@@ -45,6 +50,6 @@ class AppController extends Controller {
             'unauthorizedRedirect' => false,
             'checkAuthIn' => 'Controller.initialize'
         ]);
-*/    }
+  }
 
 }

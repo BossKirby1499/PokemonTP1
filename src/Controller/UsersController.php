@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Model\Entity\User;
+use Cake\Event\Event;
 use Cake\Mailer\Email;
 use Cake\Utility\Text;
 
@@ -20,13 +21,27 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
+    public $paginate = [
+        'page' => 1,
+        'limit' => 10,
+        'maxLimit' => 100,
+        'fields' => [
+            'id', 'email', 'actif'
+        ],
+        'sortWhitelist' => [
+            'id', 'email', 'actif'
+        ]
+    ];
 	 public function initialize()
 {
     parent::initialize();
     $this->Auth->allow(['logout']);
 	 $this->Auth->allow(['logout', 'add','confirm']);
 }
-
+    public function beforeFilter(Event $event) {
+        parent::beforeFilter($event);
+        $this->Auth->allow(['add', 'logout']);
+    }
 public function logout()
 {
     $this->Flash->success('Vous avez été déconnecté.');
@@ -37,6 +52,7 @@ public function logout()
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
+        $this->set('_serialize', ['users']);
     }
 
     /**
@@ -53,6 +69,7 @@ public function logout()
         ]);
 
         $this->set('user', $user);
+        $this->set('_serialize', ['user']);
     }
 
     /**
@@ -100,6 +117,7 @@ public function logout()
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
     }
 
     /**

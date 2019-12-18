@@ -15,6 +15,7 @@ class UsersController extends AppController {
     }
 
     public function add() {
+
         $this->Crud->on('afterSave', function(Event $event) {
             if ($event->subject->created) {
                 $this->set('data', [
@@ -28,21 +29,26 @@ class UsersController extends AppController {
                 $this->Crud->action()->config('serialize.data', 'data');
             }
         });
+
         return $this->Crud->execute();
     }
 
     public function token() {
         $user = $this->Auth->identify();
+
         if (!$user) {
-            throw new UnauthorizedException('Invalid username or password');
+            throw new UnauthorizedException('Invalid email or password');
         }
+        $this->Auth->setUser($user);
         $this->set([
             'success' => true,
+            'response' => 'Login successful',
             'data' => [
+                'id' => $user['id'],
                 'token' => JWT::encode([
                     'sub' => $user['id'],
                     'exp' => time() + 604800
-                        ], Security::salt())
+                ], Security::salt())
             ],
             '_serialize' => ['success', 'data']
         ]);

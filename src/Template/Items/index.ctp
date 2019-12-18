@@ -1,76 +1,53 @@
 <?php
-$urlToRestApi = $this->Url->build('/api/items', true);
+$urlToRestApi = $this->Url->build([
+    'prefix' => 'api',
+    'controller' => 'Items'], true);
 echo $this->Html->scriptBlock('var urlToRestApi = "' . $urlToRestApi . '";', ['block' => true]);
 echo $this->Html->script('Items/index', ['block' => 'scriptBottom']);
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="panel panel-default items-content">
-            <div class="panel-heading">Items <a href="javascript:void(0);" class="glyphicon glyphicon-plus" id="addLink" onclick="javascript:$('#addForm').slideToggle();">Add</a></div>
-            <div class="panel-body none formData" id="addForm">
-                <h2 id="actionLabel">Add Item</h2>
-                <form class="form" id="itemAddForm" enctype='application/json'>
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" name="name" id="name"/>
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <input type="text" class="form-control" name="description" id="description"/>
-                    </div>
-                    <a href="javascript:void(0);" class="btn btn-warning" onclick="$('#addForm').slideUp();">Cancel</a>
-                    <a href="javascript:void(0);" class="btn btn-success" onclick="itemAction('add')">Add Item</a>
-                    <!-- input type="submit" class="btn btn-success" id="addButton" value="Add Cocktail" -->
-                </form>
-            </div>
-            <!-- <div class="panel-body none formData" id="editForm">
-                 <h2 id="actionLabel">Edit Cocktail</h2>
-                 <form class="form" id="cocktailEditForm" enctype='application/json'>
-                     <div class="form-group">
-                         <label>Name</label>
-                         <input type="text" class="form-control" name="name" id="nameEdit"/>
-                     </div>
-                     <div class="form-group">
-                         <label>Description</label>
-                         <input type="text" class="form-control" name="description" id="descriptionEdit"/>
-                     </div>
-                     <input type="hidden" class="form-control" name="id" id="idEdit"/>
-                     <a href="javascript:void(0);" class="btn btn-warning" onclick="$('#editForm').slideUp();">Cancel</a>
-                     <a href="javascript:void(0);" class="btn btn-success" onclick="cocktailAction('edit')">Update Cocktail</a>
-                      input type="submit" class="btn btn-success" id="editButton" value="Update Cocktail"
-                </form>-->
-            </div>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="itemData">
-                    <?php
-                    $count = 0;
-                    foreach ($items as $item): $count++;
-                        ?>
-                        <tr>
-                            <td><?php echo '#' . $count; ?></td>
-                            <td><?php echo $item['name']; ?></td>
-                            <td><?php echo $item['description']; ?></td>
-                            <td>
-                                <a href="javascript:void(0);" class="glyphicon glyphicon-edit" onclick="editItem('<?php echo $item['id']; ?>')"></a>
-                                <a href="javascript:void(0);" class="glyphicon glyphicon-trash" onclick="return confirm('Are you sure to delete data?') ? itemAction('delete', '<?php echo $item['id']; ?>') : false;"></a>
-                            </td>
-                        </tr>
-                        <?php
-                    endforeach;
-                    ?>
-                    <tr><td colspan="5">No item(s) found......</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+<div  ng-app="app" ng-controller="ItemCRUDCtrl">
+    <table>
+        <tr>
+            <td width="100">ID:</td>
+            <td><input type="text" id="id" ng-model="item.id" /></td>
+        </tr>
+        <tr>
+            <td width="100">Name:</td>
+            <td><input type="text" id="name" ng-model="item.name" /></td>
+        </tr>
+        <tr>
+            <td width="100">Description:</td>
+            <td><input type="text" id="description" ng-model="item.description" /></td>
+        </tr>
+    </table>
+    <br /> <br />
+    <a ng-click="getItem(item.id)">Get Item</a>
+    <a ng-click="updateItem(item.id, item.name, item.description)">Update Item</a>
+    <a ng-click="addItem(item.name, item.description)">Add Item</a>
+    <a ng-click="deleteItem(item.id)">Delete Item</a>
 
+    <br /> <br />
+    <p style="color: green">{{message}}</p>
+    <p style="color: red">{{errorMessage}}</p>
+
+    <br />
+    <br />
+    <a ng-click="getAllItems()">Get all Items</a><br />
+    <br /> <br />
+    <table>
+        <tr><th>Id</th><th>Name</th><th>Description</th></tr>
+    </table>
+    <div ng-repeat="item in items">
+        <table>
+
+
+            <tr>
+                <td>{{item.id}} </td>
+                <td>{{item.name}} </td>
+                <td>{{item.description}}</td>
+            </tr>
+        </table>
+    </div>
+    <!-- pre ng-show='cocktails'>{{cocktails | json }}</pre-->
+</div>

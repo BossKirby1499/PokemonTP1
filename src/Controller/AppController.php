@@ -18,6 +18,7 @@ use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\i18n\i18n;
 
+
 /**
  * Application Controller
  *
@@ -65,7 +66,7 @@ class AppController extends Controller
             // If unauthorized, return them to page they were just on
             'unauthorizedRedirect' => $this->referer()
         ]);
-		  $this->Auth->allow(['display', 'view', 'index', 'changeLang']);
+		  $this->Auth->allow(['display', 'view', 'index', 'changeLang','add']);
         I18n::setLocale($this->request->session()->read('Config.language'));
 	}
 	public function isAuthorized($user)
@@ -73,6 +74,9 @@ class AppController extends Controller
     // By default deny access.
     return false;
 	}
+    public function beforeFilter(Event $event) {
+        $this->Auth->allow(['index', 'view', 'display', 'getByCategory', 'getSubcategoriesSortedByCategories', 'getCategories']);
+    }
     public function changeLang($lang = 'en_US') {
         I18n::setLocale($lang);
         $this->request->session()->write('Config.language', $lang);

@@ -75,6 +75,8 @@
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-diactoros" />
       <path value="$PROJECT_DIR$/vendor/symfony/debug" />
       <path value="$PROJECT_DIR$/vendor/friendsofcake/crud" />
+      <path value="$PROJECT_DIR$/vendor/admad/cakephp-jwt-auth" />
+      <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
     </include_path>
   </component>
   <component name="PhpUnit">

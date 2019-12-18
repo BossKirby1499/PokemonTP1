@@ -6,25 +6,37 @@
 ?>
 <?php
 $urlToLinkedListFilter = $this->Url->build([
-    "controller" => "Subcategories",
-    "action" => "getByCategory",
+    "controller" => "Categories",
+    "action" => "getCategories",
     "_ext" => "json"
 ]);
 echo $this->Html->scriptBlock('var urlToLinkedListFilter = "' . $urlToLinkedListFilter . '";', ['block' => true]);
 echo $this->Html->script('Pokemon/add', ['block' => 'scriptBottom']);
 ?>
+
 <?php
 
 
 
-$urlToPokemonAutocompletesdemoJson = $this->Url->build([
+/*$urlToPokemonAutocompletesdemoJson = $this->Url->build([
     "controller" => "PokemonAutocompletes",
     "action" => "findPokemon",
     "_ext" => "json"
 ]);
 echo $this->Html->scriptBlock('var urlToAutocompleteAction = "' . $urlToPokemonAutocompletesdemoJson . '";', ['block' => true]);
-echo $this->Html->script('pokemon_autocompletes/autocompletedemo', ['block' => 'scriptBottom']);
+echo $this->Html->script('pokemon_autocompletes/autocompletedemo', ['block' => 'scriptBottom']);*/
 ?>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.js"></script>
+<script>
+    function categoriesController($scope, $http) {
+        var url = "http://localhost/montmo/a18-5b7/CakeAngularJs/Cakephp_AngularJS_v0_0_3/categories/getCategories.json";
+
+        $http.get(url).then(function (response) {
+            $scope.categories = response.data;
+        });
+    }
+</script>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -36,7 +48,7 @@ echo $this->Html->script('pokemon_autocompletes/autocompletedemo', ['block' => '
 
     </ul>
 </nav>
-<div class="pokemon form large-9 medium-8 columns content">
+<div class="pokemon form large-9 medium-8 columns content" ng-app="linkedlists" ng-controller="categoriesController">
     <?= $this->Form->create($pokemon) ?>
     <fieldset>
         <legend><?= __('Add Pokemon') ?></legend>
@@ -52,10 +64,35 @@ echo $this->Html->script('pokemon_autocompletes/autocompletedemo', ['block' => '
             echo $this->Form->control('published');
             echo $this->Form->control('types._ids', ['options' => $types]);
             echo $this->Form->control('files._ids', ['options' => $files]);
-            echo $this->Form->control('Category_id', ['options' => $categories]);
-            echo $this->Form->control('subcategory_id', ['options' => $subcategories]);
         ?>
+
+        <div>
+            Region:
+            <select name="Category_id"
+                    id="category-id"
+                    ng-model="category"
+                    ng-options="category.name for category in categories track by category.id"
+                >
+                <option value=''>Select</option>
+            </select>
+        </div>
+
+            Subregion:
+            <select name="subcategory_id"
+                    id="subcategory-id"
+                    ng-disabled="!category"
+                    ng-model="subcategory"
+                    ng-options="subcategory.name for subcategory in category.subcategories track by subcategory.id"
+            >
+                <option value=''>Select</option>
+            </select>
+        <?= $this->Form->button(__('Submit')) ?>
+        </div>
+
+        </div>
+
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+
     <?= $this->Form->end() ?>
+
 </div>

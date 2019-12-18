@@ -9,6 +9,7 @@ class EmailsController extends AppController{
 
         $email = new Email('default');
         $email->to('davidlavigueur@live.ca')->subject('About')->send('My message');
+
     }
 }
 ?>
